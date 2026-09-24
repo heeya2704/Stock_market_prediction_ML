@@ -1,11 +1,13 @@
-<img width="1896" height="918" alt="Screenshot 2025-10-01 155033" src="https://github.com/user-attachments/assets/a1a2f61e-5f3c-495a-94ae-951e0f729805" />
-*******************************************************************************************************************************************************
-<img width="1398" height="697" alt="Screenshot 2025-10-01 155051" src="https://github.com/user-attachments/assets/72e847d8-99a3-4704-a05d-ff40186cea72" />
-*******************************************************************************************************************************************************
-<img width="1853" height="889" alt="Screenshot 2025-10-01 155728" src="https://github.com/user-attachments/assets/4aa1a6a3-deae-4acd-b319-7a62d22fbc97" />
-
-
 # Stock Market Prediction with Machine Learning and Django
+
+![StockInsight Dashboard Preview](app/static/image/dashboard_preview.png)
+
+***
+
+![StockInsight AI Prediction Preview](app/static/image/prediction_preview.png)
+
+
+---
 
 A web application that predicts live stock prices in the American market using machine learning algorithms and data retrieved from the Yahoo Finance API. This project combines the power of Python, Django, and machine learning to provide users with accurate stock price forecasts and insightful trend analysis.
 
