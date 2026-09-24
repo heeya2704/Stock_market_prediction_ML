@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>StockInsight | Stock Market Prediction</title>
+  <link rel="shortcut icon" href="{% static 'image/user.webp' %}" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Bootstrap CSS -->
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+
+  <!-- Custom Modern Glass CSS -->
+  <link href="{% static 'css/style.css' %}?v=5" rel="stylesheet" />
+</head>
+
+<body>
+
+  <!-- Floating Navbar -->
+  <header class="navbar">
+    <div class="navbar-left">
+      <div class="logo-icon">
+        <i class="fas fa-chart-line"></i>
+      </div>
+      <span class="logo-text">StockInsight</span>
+      <span class="logo-badge">AI/ML</span>
+    </div>
+    <div class="navbar-right">
+      <a href="{% url 'index' %}" class="nav-link active"><i class="fas fa-home me-1"></i> Home</a>
+      <a href="{% url 'search' %}" class="nav-link"><i class="fas fa-magic me-1"></i> Predict</a>
+      <a href="{% url 'ticker' %}" class="nav-link"><i class="fas fa-list-alt me-1"></i> Ticker Info</a>
+      <a href="{% url 'about' %}" class="nav-link"><i class="fas fa-info-circle me-1"></i> About</a>
+      <a href="https://github.com/heeya2704/Stock_market_prediction_ML" target="_blank" class="github-btn">
+        <i class="fab fa-github"></i> GitHub
+      </a>
+    </div>
+  </header>
+
+  <div class="container" style="max-width: 1240px;">
+    <!-- Hero Section -->
+    <section class="hero glass-card">
+      <h1 class="hero-title">Real-Time Stock Market Intelligence</h1>
+      <p class="hero-subtitle">Empowering smarter trading decisions with AI predictions, live Yahoo Finance analytics, and machine learning models.</p>
+      <div class="mt-3">
+        <h3 id="running-text">📈 Welcome to StockInsight 💹</h3>
+      </div>
+    </section>
+
+    <!-- Active Stocks Chart Section -->
+    <section class="glass-card">
+      <div class="section-header">
+        <h5><i class="fas fa-chart-area text-info"></i> Active Market Trends</h5>
+        <a href="{% url 'search' %}"><i class="fas fa-search me-1"></i> Custom Predict</a>
+      </div>
+      <div class="p-2" style="border-radius: 12px; overflow: hidden;">
+        {% block Left_Plot %}{% autoescape off %}{{ plot_div_left }}{% endautoescape %}{% endblock Left_Plot %}
+      </div>
+    </section>
+
+    <!-- Recent Stocks Table -->
+    <section class="glass-card">
+      <div class="section-header">
+        <h5><i class="fas fa-table text-info"></i> Recent Market Performance</h5>
+        <a href="https://finance.yahoo.com/trending-tickers" target="_blank"><i class="fas fa-external-link-alt me-1"></i> Trending Tickers</a>
+      </div>
+      <div class="table-responsive">
+        <table class="table glass-table">
+          <thead>
+            <tr>
+              <th>Ticker</th>
+              <th>Open ($)</th>
+              <th>High ($)</th>
+              <th>Low ($)</th>
+              <th>Close ($)</th>
+              <th>Adj Close ($)</th>
+              <th>Volume</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in recent_stocks %}
+            <tr>
+              <td><span class="ticker-badge">{{ i.Ticker }}</span></td>
+              <td>${{ i.Open }}</td>
+              <td class="text-success">${{ i.High }}</td>
+              <td class="text-danger">${{ i.Low }}</td>
+              <td><strong>${{ i.Close }}</strong></td>
+              <td>${{ i.Adj_Close }}</td>
+              <td>{{ i.Volume }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="7" class="text-center py-4 text-muted">Fetching live market data...</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Created by <a href="https://github.com/heeya2704/Stock_market_prediction_ML" target="_blank" class="footer-author">Heeya Dadhalwala</a> &bull; All Rights Reserved &copy; StockInsight</p>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

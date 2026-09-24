@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Predict Stock Prices | StockInsight</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Bootstrap -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+
+    <!-- Custom Glass CSS -->
+    <link href="{% static 'css/style.css' %}?v=5" rel="stylesheet" />
+</head>
+
+<body>
+
+    <!-- Floating Navbar -->
+    <header class="navbar">
+        <div class="navbar-left">
+            <div class="logo-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <span class="logo-text">StockInsight</span>
+            <span class="logo-badge">AI/ML</span>
+        </div>
+        <div class="navbar-right">
+            <a href="{% url 'index' %}" class="nav-link"><i class="fas fa-home me-1"></i> Home</a>
+            <a href="{% url 'search' %}" class="nav-link active"><i class="fas fa-magic me-1"></i> Predict</a>
+            <a href="{% url 'ticker' %}" class="nav-link"><i class="fas fa-list-alt me-1"></i> Ticker Info</a>
+            <a href="{% url 'about' %}" class="nav-link"><i class="fas fa-info-circle me-1"></i> About</a>
+            <a href="https://github.com/heeya2704/Stock_market_prediction_ML" target="_blank" class="github-btn">
+                <i class="fab fa-github"></i> GitHub
+            </a>
+        </div>
+    </header>
+
+    <div class="container" style="max-width: 800px;">
+        <!-- Hero Form Card -->
+        <section class="hero glass-card">
+            <h1 class="hero-title"><i class="fas fa-brain me-2"></i>Predict Stock Prices</h1>
+            <p class="hero-subtitle mb-4">Select or type any stock ticker symbol and enter the number of future days to generate machine learning price predictions.</p>
+
+            <div class="form-container">
+                <!-- Quick Ticker Suggestions -->
+                <div class="d-flex justify-content-center gap-2 flex-wrap mb-4">
+                    <span class="text-muted small align-self-center">Popular:</span>
+                    <button type="button" class="btn btn-sm btn-outline-info rounded-pill" onclick="setTicker('AAPL')">AAPL</button>
+                    <button type="button" class="btn btn-sm btn-outline-info rounded-pill" onclick="setTicker('TSLA')">TSLA</button>
+                    <button type="button" class="btn btn-sm btn-outline-info rounded-pill" onclick="setTicker('NVDA')">NVDA</button>
+                    <button type="button" class="btn btn-sm btn-outline-info rounded-pill" onclick="setTicker('AMZN')">AMZN</button>
+                    <button type="button" class="btn btn-sm btn-outline-info rounded-pill" onclick="setTicker('GOOGL')">GOOGL</button>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="tickerinp" placeholder="e.g. AAPL" name="ticker" autocomplete="on" required>
+                    <label for="tickerinp"><i class="fas fa-tag me-1"></i> Stock Ticker Symbol</label>
+                </div>
+
+                <div class="form-floating mb-4">
+                    <input type="number" class="form-control" id="days" placeholder="e.g. 30" name="days" value="30" autocomplete="on" required>
+                    <label for="days"><i class="fas fa-calendar-alt me-1"></i> Forecast Days (e.g., 30)</label>
+                </div>
+
+                <button type="button" class="btn btn-primary" onclick="LoadURL()">
+                    <i class="fas fa-sparkles me-2"></i> Run Prediction Model
+                </button>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Created by <a href="https://github.com/heeya2704/Stock_market_prediction_ML" target="_blank" class="footer-author">Heeya Dadhalwala</a> &bull; All Rights Reserved &copy; StockInsight</p>
+        </footer>
+    </div>
+
+    <script type="text/javascript">
+        function setTicker(symbol) {
+            document.getElementById("tickerinp").value = symbol;
+        }
+
+        function LoadURL() {
+            var ticker = document.getElementById("tickerinp").value.trim().toUpperCase();
+            var days = document.getElementById("days").value.trim();
+            if (!ticker || !days) {
+                alert("Please enter both a Ticker Symbol and Number of Days.");
+                return;
+            }
+            var server = window.location.origin;
+            var path = "/predict/" + ticker + "/" + days;
+            window.location.href = server + path;
+        }
+
+        // Allow pressing Enter key to submit
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                LoadURL();
+            }
+        });
+    </script>
+</body>
+
+</html>
